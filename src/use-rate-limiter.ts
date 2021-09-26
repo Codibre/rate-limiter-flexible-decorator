@@ -1,48 +1,51 @@
+import { limiterInstances } from './instances';
+import { AbstractClass } from 'is-this-a-pigeon';
 import { RateLimitException } from './rate-limit-exception';
 import { createMethodDecorator, replaceMethod } from 'decorator-builder';
-import { RateLimiterAbstract, RateLimiterRes } from 'rate-limiter-flexible';
+import { RateLimiterRes } from 'rate-limiter-flexible';
 import { DecorableRateLimiter } from './decorable-rate-limiter';
+import { Args } from 'is-this-a-pigeon';
 
 async function limitedCall(
-	limiter: RateLimiterAbstract & DecorableRateLimiter<any>,
+	this: any,
+	limiter: DecorableRateLimiter<Args>,
 	args: any[],
+	getKey: (...argsN: Args) => string,
+	call: Function,
 ) {
 	try {
-		return await limiter.consume(limiter.getKey(...args));
+		await limiter.consume(getKey ? getKey(...args) : limiter.getKey!(...args));
 	} catch (err) {
 		if (!(err instanceof RateLimiterRes)) {
 			throw err;
 		}
-		if (limiter.catch) {
-			return limiter.catch(err);
-		} else {
+		if (!limiter.catch) {
 			throw new RateLimitException(err);
 		}
+		return limiter.catch(err);
 	}
+	return call();
 }
 
-export const UseRemembered = createMethodDecorator<
+export const UseRateLimiter = createMethodDecorator<
 	(
 		limiter:
-			| (RateLimiterAbstract & Partial<DecorableRateLimiter<any>>)
+			| DecorableRateLimiter<any>
 			| string
 			| symbol
-			| (abstract new () => RateLimiterAbstract &
-					Partial<DecorableRateLimiter<any>>),
-		getKey: (...args: any[]) => string,
+			| AbstractClass<DecorableRateLimiter<any>>,
+		getKey: (...args: Args) => string,
 	) => void
 >((item) =>
 	replaceMethod(
 		item,
 		(previous) =>
 			function (this: any, ...args: any[]) {
-				const limiter:
-					| (RateLimiterAbstract & DecorableRateLimiter<any>)
-					| undefined = (
-					item.target[item.name as keyof typeof item.target] as any
-				).limiter;
+				const limiter = limiterInstances.get(item.args[0]);
 				const call = () => previous.call(this, ...args);
-				return limiter ? limitedCall(limiter, args) : call();
+				return limiter
+					? limitedCall(limiter, args, item.args[1], call)
+					: call();
 			},
 	),
 );
