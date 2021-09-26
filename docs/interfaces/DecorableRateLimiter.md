@@ -1,4 +1,4 @@
-[fluent-iterable - v0.0.2](../README.md) / DecorableRateLimiter
+[fluent-iterable - v0.0.3](../README.md) / DecorableRateLimiter
 
 # Interface: DecorableRateLimiter<Args\>
 
@@ -13,6 +13,7 @@
 ### Methods
 
 - [catch](DecorableRateLimiter.md#catch)
+- [consume](DecorableRateLimiter.md#consume)
 - [getKey](DecorableRateLimiter.md#getkey)
 
 ## Methods
@@ -33,9 +34,25 @@
 
 ___
 
+### consume
+
+▸ **consume**(`key`): `Promise`<`RateLimiterRes`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `key` | `string` \| `number` |
+
+#### Returns
+
+`Promise`<`RateLimiterRes`\>
+
+___
+
 ### getKey
 
-▸ **getKey**(...`args`): `string`
+▸ `Optional` **getKey**(...`args`): `string`
 
 #### Parameters
 

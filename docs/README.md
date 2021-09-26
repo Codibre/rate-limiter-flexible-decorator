@@ -1,6 +1,6 @@
-fluent-iterable - v0.0.2
+fluent-iterable - v0.0.3
 
-# fluent-iterable - v0.0.2
+# fluent-iterable - v0.0.3
 
 ## Table of contents
 
@@ -14,10 +14,30 @@ fluent-iterable - v0.0.2
 
 ### Variables
 
-- [UseRemembered](README.md#useremembered)
+- [UseRateLimiter](README.md#useratelimiter)
+
+### Functions
+
+- [setupRateLimiter](README.md#setupratelimiter)
 
 ## Variables
 
-### UseRemembered
+### UseRateLimiter
 
-• **UseRemembered**: `IterableMethodDecorator`<[limiter: string \| symbol \| RateLimiterAbstract & Partial<DecorableRateLimiter<any\>\> \| Function, getKey: Function]\>
+• **UseRateLimiter**: `IterableMethodDecorator`<[limiter: string \| symbol \| DecorableRateLimiter<any\> \| AbstractClass<DecorableRateLimiter<any\>\>, getKey: Function]\>
+
+## Functions
+
+### setupRateLimiter
+
+▸ **setupRateLimiter**(`instanceGetter`): `void`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `instanceGetter` | (`cls`: `string` \| `symbol` \| `AbstractClass`<`Object`\>) => `undefined` \| [`DecorableRateLimiter`](interfaces/DecorableRateLimiter.md)<`Args`\> |
+
+#### Returns
+
+`void`
