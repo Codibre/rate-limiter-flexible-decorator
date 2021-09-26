@@ -6,7 +6,7 @@
 [![Packages](https://david-dm.org/Codibre/rate-limiter-flexible-decorator.svg)](https://david-dm.org/Codibre/rate-limiter-flexible-decorator)
 [![npm version](https://badge.fury.io/js/%40codibre%2Frate-limiter-flexible-decorator.svg)](https://badge.fury.io/js/%40codibre%2Frate-limiter-flexible-decorator)
 
-Never forget to write your readme! Also, don't forget to add codeclimate key to your github environment variables (as **CC_TEST_REPORTER_ID**) and to update the url here with the one provided by them!
+WIP
 
 ## How to Install
 
