@@ -2,7 +2,7 @@
   "name": "rate-limiter-flexible-decorator",
   "description": "Decorator style for rate-limiter-flexible",
   "version": "0.0.3",
-  "private": true,
+  "private": false,
   "author": {
     "name": "Thiago O Santos <tos.oliveira@gmail.com>"
   },
