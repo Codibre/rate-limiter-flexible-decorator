@@ -1,4 +1,4 @@
-[fluent-iterable - v0.0.1](../README.md) / RateLimitException
+[fluent-iterable - v0.0.2](../README.md) / RateLimitException
 
 # Class: RateLimitException
 
