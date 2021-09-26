@@ -56,7 +56,9 @@
       "./src/**/*.ts"
     ],
     "testEnvironment": "node",
-    "setupFilesAfterEnv": ["./test/jest-setup.ts"]
+    "setupFilesAfterEnv": [
+      "./test/jest-setup.ts"
+    ]
   },
   "directories": {
     "test": "test"
@@ -98,5 +100,9 @@
     "typedoc": "^0.22.4",
     "typedoc-plugin-markdown": "^3.11.2",
     "typescript": "^4.4.3"
+  },
+  "dependencies": {
+    "decorator-builder": "^0.2.4",
+    "rate-limiter-flexible": "^2.2.4"
   }
 }
