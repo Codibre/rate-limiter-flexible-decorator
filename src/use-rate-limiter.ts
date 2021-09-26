@@ -5,6 +5,7 @@ import { createMethodDecorator, replaceMethod } from 'decorator-builder';
 import { RateLimiterRes } from 'rate-limiter-flexible';
 import { DecorableRateLimiter } from './decorable-rate-limiter';
 import { Args } from 'is-this-a-pigeon';
+import { isRateLimiter } from './is-rate-limiter';
 
 async function limitedCall(
 	this: any,
@@ -41,7 +42,9 @@ export const UseRateLimiter = createMethodDecorator<
 		item,
 		(previous) =>
 			function (this: any, ...args: any[]) {
-				const limiter = limiterInstances.get(item.args[0]);
+				const limiter = isRateLimiter(item.args[0])
+					? item.args[0]
+					: limiterInstances.get(item.args[0]);
 				const call = () => previous.call(this, ...args);
 				return limiter
 					? limitedCall(limiter, args, item.args[1], call)
